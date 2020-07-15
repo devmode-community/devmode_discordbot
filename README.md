@@ -1,15 +1,15 @@
 # Bot para o discord da comunidade
->[Nosso Discord](https://discord.gg/EHy4MsC). Fique a vontade para forkar o bot e colaborar com o mesmo, seja adicionando funcionalidades, refatorando, concertando, etc.
+>[Nosso Discord](https://discord.gg/EHy4MsC). Fique a vontade para forkar o bot e colaborar com o mesmo, seja adicionando funcionalidades, refatorando, consertando, etc.
 
 Table of contents
 =================
 
-   * [Table of contents](#table-of-contents)
    * [Technology used](#technology-used)
    * [Installation](#installation)
    * [Usage](#usage)
-      * [Git](#git)
       * [Documentacao](#documentacao)
+      * [Git](#git)
+      * [Issues](#issues)
    * [Deploy](#deploy)
 
 
@@ -23,15 +23,10 @@ Technology used
 
 Installation  
 ============
-`$ git add .`  
+`$ npm install`  
 
 Usage
 =====
-
-Git  
------
-
-A branch `master` será utilizada apenas para dar deploy. Favor utilizar a branch `develop` quando tiver trabalhando no código, ou crie uma branch especifica para alguma feature.  
 
 Documentacao  
 -----
@@ -39,7 +34,17 @@ Documentacao
 - [DiscordJS Questions](https://discordjs.guide/popular-topics/common-questions.html)  
 - [Discord Commando](https://discord.js.org/#/docs/commando/master/general/welcome)  
 - [Discord App](https://support.discord.com/hc/pt-br)  
+
+Git  
+-----
+
+A branch `master` será utilizada apenas para dar deploy. Favor utilizar a branch `develop` quando tiver trabalhando no código, ou crie uma branch especifica para alguma feature.  
+
+Issues  
+-----
+
+TODO. Falta testar e catalogar as issues, para isso é necessario usar nosso discord e reportar.
   
 Deploy  
 ============
-No **Heroku**, o projeto está rodando na branch `master`.
+No **Heroku** a função de deploy automatica por branch no git está ativado, o projeto está rodando na branch `master`.
