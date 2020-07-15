@@ -55,6 +55,16 @@ bot.on('ready', async () => {
     .catch(console.error);
 });
 
+// evento em que o bot envia uma mensagem assim que um novo membro é adicionado ao servidor
+bot.on("guildMemberAdd", member => {
+    const channel = member.guild.channels.find(c => c.id === "475507684024516610"); //ou c.name, nesse nosso caso, GERAL
+    if (!channel) return;
+
+    channel.send(`Bem vindo a Dev Mode, ${member}! :wave:`);
+    channel.send("Você pode adicionar roles digitando o comando como no exemplo: `" + `!addrole` + " developer javascript fullstack`");
+});
+
+// evento ativado quando o bot recebe uma mensagem
 bot.on('message', async message => {
 
   	let mensagemArray = message.content.split(" ");
@@ -63,6 +73,13 @@ bot.on('message', async message => {
 
     const args = message.content.slice(1).trim().split(/ +/g);
     const comando_com_arg = args.shift().toLowerCase();
+
+    // moderar certas mensagens que contem palavras desrespeitosas
+    const swearWords = ["nigga", "puta"];
+    if (swearWords.some(word => message.content.includes(word))) {
+        message.reply(`Mais respeito <@${message.author.id}>!!!`);
+        message.delete().catch(e => {});
+    }
   	
     if (message.author.bot) return;
       
@@ -102,7 +119,8 @@ bot.on('message', async message => {
                 for (var devmode_role in devmodeserver_roles) {
                     if (devmode_role === args[i]) {
                         var server_role = SERVER.roles.cache.find(role => role.id === devmodeserver_roles[devmode_role]);
-                        message.member.roles.remove(server_role);
+                        if (server_role) message.member.roles.remove(server_role);
+                        if (!server_role) message.reply(`<@${message.author.id}> não possui a role ${devmode_role}`);
                     }
                 }
             }
