@@ -17,6 +17,32 @@ const bot_comando = new Commando.Client({
     owner: '186519740863217664'
 });
 
+const devmodeserver_roles = {
+    //areas
+    developer: "732607336451014669",
+    datascientist: "732607450204733621",
+    devops: "732607609068060753",
+    infra: "732607758980874290",
+    uxui: "732613392912613378",
+    coach: "732608475049230396",
+    business: "732608526874312754",
+    gestor: "732608722068701235",
+    rh: "732608699218002010",
+    //especialidades
+    fullstack: "732607560221196340",
+    mobile: "732610332950003835",
+    backend: "732607499491868724",
+    frontend: "732607536934682704",
+    // linguagens
+    java: "732607292951887993",
+    javascript: "732607042304344095",
+    python: "732607821333659729",
+    ruby: "732612456014282762",
+    php: "732612770679226521",
+    dotnet: "732608002900754483",
+    sap: "732608366266023957"
+}
+
 bot.on('ready', async () => {
     console.log(`${bot.user.username} is online`);
     console.log('Estou pronto!');
@@ -32,8 +58,11 @@ bot.on('ready', async () => {
 bot.on('message', async message => {
 
   	let mensagemArray = message.content.split(" ");
-  	let comando = mensagemArray[0];
-    let args = mensagemArray.slice(1);
+  	let comando = mensagemArray[0].toLowerCase();
+    //let args = mensagemArray.slice(1);
+
+    const args = message.content.slice(1).trim().split(/ +/g);
+    const comando_com_arg = args.shift().toLowerCase();
   	
     if (message.author.bot) return;
       
@@ -52,6 +81,34 @@ bot.on('message', async message => {
         }
     // fim da Direct Message(DM)    
     };
+
+    if (comando_com_arg === `addrole`){
+        if (args.length > 0) {
+            for(var i = 0; i<args.length; i++){
+                for (var devmode_role in devmodeserver_roles) {
+                    if (devmode_role === args[i]) {
+                        var server_role = SERVER.roles.cache.find(role => role.id === devmodeserver_roles[devmode_role]);
+                        message.member.roles.add(server_role);
+                    }
+                }
+            }
+            message.reply("Roles adicionadas :]");
+        } else { message.reply("Por favor, providencie os argumentos necessários no formato exemplo: `" + `!addrole` + " developer javascript fullstack`"); }
+    }
+
+    if (comando_com_arg === `removerole`){
+        if (args.length > 0) {
+            for(var i = 0; i<args.length; i++){
+                for (var devmode_role in devmodeserver_roles) {
+                    if (devmode_role === args[i]) {
+                        var server_role = SERVER.roles.cache.find(role => role.id === devmodeserver_roles[devmode_role]);
+                        message.member.roles.remove(server_role);
+                    }
+                }
+            }
+            message.reply("Roles removidas :]");
+        } else { message.reply("Por favor, providencie os argumentos necessários no formato exemplo: `" + `!addrole` + " developer javascript fullstack`"); }
+    }
   	
   	if (comando === `${prefixo}ping`){
         //WebSocketManager no client.ws.ping
