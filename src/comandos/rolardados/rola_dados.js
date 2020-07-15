@@ -12,15 +12,12 @@ class RolarDadosComando extends commando.Command {
 
     //bloco em que roda o comando cada vez que for digitado
     async run(message, args) {
-        if (message.channel.type === "dm"){
-            // Necessário verificar se o user faz parte da comunidade no discord
-            if (SERVER.member(message.author.id)) {
-                //cortando os decimais com floor podemos utilizar o metodo random (0<1)
-                var rolar = Math.floor(Math.random() * 6) + 1; 
-                message.reply("Tu rolou " + rolar);
-            } else { 
-                message.reply('Desculpe, mas você não faz parte da comunidade Dev Mode de Campos :sob:');
-            }
+        if (SERVER.member(message.author.id)) {
+            //cortando os decimais com floor podemos utilizar o metodo random (0<1)
+            var rolar = Math.floor(Math.random() * 6) + 1; 
+            message.reply("Tu rolou " + rolar);
+        } else { 
+            message.reply('Desculpe, mas você não faz parte da comunidade Dev Mode de Campos :sob:');
         }
 	}
 }
