@@ -103,7 +103,7 @@ bot.on('message', async message => {
         if (args.length > 0) {
             for(var i = 0; i<args.length; i++){
                 for (var devmode_role in devmodeserver_roles) {
-                    if (devmode_role === args[i]) {
+                    if (devmode_role === args[i].toLowerCase()) {
                         var server_role = SERVER.roles.cache.find(role => role.id === devmodeserver_roles[devmode_role]);
                         message.member.roles.add(server_role);
                     }
@@ -117,10 +117,9 @@ bot.on('message', async message => {
         if (args.length > 0) {
             for(var i = 0; i<args.length; i++){
                 for (var devmode_role in devmodeserver_roles) {
-                    if (devmode_role === args[i]) {
+                    if (devmode_role === args[i].toLowerCase()) {
                         var server_role = SERVER.roles.cache.find(role => role.id === devmodeserver_roles[devmode_role]);
-                        if (server_role) message.member.roles.remove(server_role);
-                        if (!server_role) message.reply(`<@${message.author.id}> não possui a role ${devmode_role}`);
+                        server_role ? message.member.roles.remove(server_role) : message.reply(`<@${message.author.id}> não possui a role ${devmode_role}`);
                     }
                 }
             }
