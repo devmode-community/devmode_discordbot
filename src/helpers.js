@@ -1,9 +1,11 @@
 export function contemUrl(message) {
   message = message.toLowerCase();
   let urlFound = false;
-  if (message.includes('http://')
-        || message.includes('https://')
-        || message.includes('www')) {
+  if (
+    message.includes('http://') ||
+    message.includes('https://') ||
+    message.includes('www')
+  ) {
     urlFound = true;
   }
   return urlFound;

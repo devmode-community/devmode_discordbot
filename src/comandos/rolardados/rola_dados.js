@@ -17,7 +17,9 @@ class RolarDadosComando extends commando.Command {
       const rolar = Math.floor(Math.random() * 6) + 1;
       message.reply(`Tu rolou ${rolar}`);
     } else {
-      message.reply('Desculpe, mas você não faz parte da comunidade Dev Mode de Campos :sob:');
+      message.reply(
+        'Desculpe, mas você não faz parte da comunidade Dev Mode de Campos :sob:'
+      );
     }
   }
 }

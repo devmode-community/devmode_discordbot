@@ -50,18 +50,27 @@ bot.on('ready', async () => {
   SERVER = bot.guilds.cache.get('475507684024516608');
   // console.log(bot.guilds.cache.get("475507684024516608"));
   // Setando a atividade do bot
-  bot.user.setActivity('Star Wars', { type: 'WATCHING' })
-    .then((presence) => console.log(`Atividade setada para ${presence.activities[0].name}`))
+  bot.user
+    .setActivity('Star Wars', { type: 'WATCHING' })
+    .then((presence) =>
+      console.log(`Atividade setada para ${presence.activities[0].name}`)
+    )
     .catch(console.error);
 });
 
 // evento em que o bot envia uma mensagem assim que um novo membro é adicionado ao servidor
 bot.on('guildMemberAdd', (member) => {
-  const channel = member.guild.channels.find((c) => c.id === '475507684024516610'); // ou c.name, nesse nosso caso, GERAL
+  const channel = member.guild.channels.find(
+    (c) => c.id === '475507684024516610'
+  ); // ou c.name, nesse nosso caso, GERAL
   if (!channel) return;
 
   channel.send(`Bem vindo a Dev Mode, ${member}! :wave:`);
-  channel.send('Você pode adicionar roles digitando o comando como no exemplo: `' + '!addrole' + ' developer javascript fullstack`');
+  channel.send(
+    'Você pode adicionar roles digitando o comando como no exemplo: `' +
+      '!addrole' +
+      ' developer javascript fullstack`'
+  );
 });
 
 // evento ativado quando o bot recebe uma mensagem
@@ -77,7 +86,7 @@ bot.on('message', async (message) => {
   const swearWords = ['nigga', 'puta'];
   if (swearWords.some((word) => message.content.includes(word))) {
     message.reply(`Mais respeito <@${message.author.id}>!!!`);
-    message.delete().catch((e) => { });
+    message.delete().catch((e) => {});
   }
 
   if (message.author.bot) return;
@@ -89,11 +98,12 @@ bot.on('message', async (message) => {
       // existe um membro do servidor/guild com essa ID
       // console.log('esse user faz parte da guild')
       // console.log(message.author.id)
-
       // mensagem para quem não é da comunidade e está enviando msg privada pro bot
       // TODO: embed richtext com contatos para inserir-se na comunidade
     } else {
-      message.reply('Desculpe, mas você não faz parte da comunidade Dev Mode de Campos :sob:');
+      message.reply(
+        'Desculpe, mas você não faz parte da comunidade Dev Mode de Campos :sob:'
+      );
     }
     // fim da Direct Message(DM)
   }
@@ -103,13 +113,21 @@ bot.on('message', async (message) => {
       for (var i = 0; i < args.length; i++) {
         for (var devmode_role in devmodeserver_roles) {
           if (devmode_role === args[i].toLowerCase()) {
-            var server_role = SERVER.roles.cache.find((role) => role.id === devmodeserver_roles[devmode_role]);
+            var server_role = SERVER.roles.cache.find(
+              (role) => role.id === devmodeserver_roles[devmode_role]
+            );
             message.member.roles.add(server_role);
           }
         }
       }
       message.reply('Roles adicionadas :]');
-    } else { message.reply('Por favor, providencie os argumentos necessários no formato exemplo: `' + '!addrole' + ' developer javascript fullstack`'); }
+    } else {
+      message.reply(
+        'Por favor, providencie os argumentos necessários no formato exemplo: `' +
+          '!addrole' +
+          ' developer javascript fullstack`'
+      );
+    }
   }
 
   if (comando_com_arg === 'removerole') {
@@ -117,18 +135,32 @@ bot.on('message', async (message) => {
       for (var i = 0; i < args.length; i++) {
         for (var devmode_role in devmodeserver_roles) {
           if (devmode_role === args[i].toLowerCase()) {
-            var server_role = SERVER.roles.cache.find((role) => role.id === devmodeserver_roles[devmode_role]);
-            server_role ? message.member.roles.remove(server_role) : message.reply(`<@${message.author.id}> não possui a role ${devmode_role}`);
+            var server_role = SERVER.roles.cache.find(
+              (role) => role.id === devmodeserver_roles[devmode_role]
+            );
+            server_role
+              ? message.member.roles.remove(server_role)
+              : message.reply(
+                  `<@${message.author.id}> não possui a role ${devmode_role}`
+                );
           }
         }
       }
       message.reply('Roles removidas :]');
-    } else { message.reply('Por favor, providencie os argumentos necessários no formato exemplo: `' + '!addrole' + ' developer javascript fullstack`'); }
+    } else {
+      message.reply(
+        'Por favor, providencie os argumentos necessários no formato exemplo: `' +
+          '!addrole' +
+          ' developer javascript fullstack`'
+      );
+    }
   }
 
   if (comando === `${prefixo}ping`) {
     // WebSocketManager no client.ws.ping
-    message.reply('Pong! O ping do bot ao discord é `' + `${bot.ws.ping}` + ' ms`');
+    message.reply(
+      'Pong! O ping do bot ao discord é `' + `${bot.ws.ping}` + ' ms`'
+    );
     message.reply('O trafego é feito do user ao bot e do bot ao discord');
   }
 
@@ -155,11 +187,17 @@ bot.on('message', async (message) => {
       btcValor.getPercentageChangeLastWeek().then((percentage) => {
         const perc = percentage;
         if (perc > 0) {
-          message.channel.send(`BTC: ${value}$ \nSubiu (ultima semana): ${perc}% :hugging:`);
+          message.channel.send(
+            `BTC: ${value}$ \nSubiu (ultima semana): ${perc}% :hugging:`
+          );
         } else if (perc < 0) {
-          message.channel.send(`BTC: ${value}$ \nDesceu (ultima semana): ${perc}% :sob:`);
+          message.channel.send(
+            `BTC: ${value}$ \nDesceu (ultima semana): ${perc}% :sob:`
+          );
         } else {
-          message.channel.send(`BTC: ${value}$ \nManteve (ultima semana): ${perc}% :rolling_eyes:`);
+          message.channel.send(
+            `BTC: ${value}$ \nManteve (ultima semana): ${perc}% :rolling_eyes:`
+          );
         }
       });
     });
@@ -169,15 +207,15 @@ bot.on('message', async (message) => {
 // habilitando framework de comandos
 bot_comando.login(process.env.BOT_TOKEN);
 bot_comando.registry
-// Registers your custom command groups
+  // Registers your custom command groups
   .registerGroups([
     ['rolardados', 'Rolardados'],
     ['procurarvaga', 'Procurarvaga'],
   ])
 
-// Registra todos os grupos, comandos e tipos de argumentos pré-construidos pelo framework Discord Commando
-// .registerDefaults() //cuidado, aqui vai ser utilizado os padrões, os padrões são em ingles e captura qualquer msg como se fosse comandos
-/* .registerDefaultCommands({
+  // Registra todos os grupos, comandos e tipos de argumentos pré-construidos pelo framework Discord Commando
+  // .registerDefaults() //cuidado, aqui vai ser utilizado os padrões, os padrões são em ingles e captura qualquer msg como se fosse comandos
+  /* .registerDefaultCommands({
                     help: false,
                     prefix: false,
                     ping: false,
@@ -186,7 +224,7 @@ bot_comando.registry
                     commandState: true
                     }) */
 
-// Aqui registra todos os comandos customizados no diretório ./comandos/
+  // Aqui registra todos os comandos customizados no diretório ./comandos/
   .registerCommandsIn(path.join(__dirname, 'comandos'));
 
 // tem que ser assim pra utilizar no Heroku
