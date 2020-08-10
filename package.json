@@ -4,7 +4,7 @@
     "description": "Um bot para a comunidade devmode de Campos/RJ",
     "main": "bot.js",
     "scripts": {
-        "dev": "nodemon src/bot.js",
+        "dev": "nodemon src/bot/bot.js",
         "lint": "eslint --ignore-path .gitignore .",
         "lintfix": "eslint --ignore-path .gitignore . --fix",
         "test": "echo \"Error: no test specified\" && exit 1",
